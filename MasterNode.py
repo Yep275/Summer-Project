@@ -23,6 +23,10 @@ channel.queue_declare(queue='url_queue', durable=True)
 urls_to_crawl = ['http://example1.com', 'http://example2.com', 'http://example3.com']
 
 for url in urls_to_crawl:
+    # If the URL has already been added to the queue, skip it
+    if url in added_urls:
+        continue
+    
     # Get the load of all the nodes
     loads = r.hgetall('loads')
     
